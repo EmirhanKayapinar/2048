@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     public int myScore;
     [SerializeField] Text _scoreText;
     int isGameOver;
-    [SerializeField] GameObject _gameOverPanel;
+    [SerializeField] GameObject _gameOverPanel,_escPanel;
     private void OnEnable()
     {
         if (instance == null)
@@ -122,6 +122,12 @@ public class GameController : MonoBehaviour
             isGameOver = 0;
             _slide("a");
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _escPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     private void Start()
@@ -150,5 +156,17 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+    }
+
+    public void ExitOnClick()
+    {
+        Application.Quit();
+    }
+
+    public void ClosePanel()
+    {
+        _escPanel.SetActive(false);
+        Time.timeScale = 1;
     }
 }
